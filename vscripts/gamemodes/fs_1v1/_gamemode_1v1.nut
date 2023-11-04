@@ -614,8 +614,8 @@ void function PlayerRestoreHP_1v1(entity player, float health, float shields)
 		Inventory_SetPlayerEquipment(player, "armor_pickup_lv2", "armor")
 	else if(shields <= 100)
 		Inventory_SetPlayerEquipment(player, "armor_pickup_lv3", "armor")
-	//else if(shields <= 125)
-		//Inventory_SetPlayerEquipment(player, "armor_pickup_lv5", "armor")
+	else if(shields <= 125)
+		Inventory_SetPlayerEquipment(player, "armor_pickup_lv5", "armor")
 
 	player.SetShieldHealth( shields )
 }
@@ -720,11 +720,7 @@ void function respawnInSoloMode(entity player, int respawnSlotIndex = -1) //复�
 	if(!IsValid(player)) return
 
 	Inventory_SetPlayerEquipment(player, "armor_pickup_lv3", "armor")
-<<<<<<< HEAD
-	PlayerRestoreHP_1v1(player, 100, player.GetShieldHealthMax().tofloat())
-=======
-	PlayerRestoreHP_1v1(player, 100, GetCurrentPlaylistVarFloat("default_shield_hp", 125) )
->>>>>>> 75a065be98c11d6a36b87e218663449710c17a03
+	PlayerRestoreHP_1v1(player, 100, 125 )
 
 	Survival_SetInventoryEnabled( player, false )
 	//SetPlayerInventory( player, [] )
@@ -1325,7 +1321,7 @@ void function soloModeThread(LocPair waitingRoomLocation)
 					if(playerSelf == eachOpponent || !IsValid(eachOpponent))//过滤非法对手
 						continue
 
-					if(fabs(selfKd - opponentKd) > 50.0) //过滤kd差值
+					if(fabs(selfKd - opponentKd) > 3.0) //过滤kd差值
 						continue
 					properOpponentTable[eachOpponent] <- fabs(selfKd - opponentKd)
 				}
@@ -1454,12 +1450,6 @@ void function GiveWeaponsToGroup( array<entity> players )
 			player.TakeOffhandWeapon( OFFHAND_MELEE )
 			player.GiveWeapon( "mp_weapon_melee_survival", WEAPON_INVENTORY_SLOT_PRIMARY_2, [] )
 			player.GiveOffhandWeapon( "melee_pilot_emptyhanded", OFFHAND_MELEE, [] )
-			
-			if( !GetCurrentPlaylistVarBool( "flowstate1v1MatchLoadout", true ) )
-			{
-				primaryWeaponWithAttachments = ReturnRandomPrimaryMetagame_1v1()
-				secondaryWeaponWithAttachments = ReturnRandomSecondaryMetagame_1v1()
-			}
 		}
 	}()
 }
@@ -1494,20 +1484,8 @@ void function GivePrimaryWeapon_1v1(entity player, string weapon, int slot )
 string function ReturnRandomPrimaryMetagame_1v1()
 {
     array<string> Weapons = [
+		"mp_weapon_alternator_smg optic_cq_threat bullets_mag_l2 stock_tactical_l2 laser_sight_l2"
 		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
-		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
-		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
-		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
-		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
-		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
-		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
-		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
-		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
-		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
-		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
-		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
-		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
-		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
 		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
 		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
 		"mp_weapon_energy_shotgun optic_cq_threat shotgun_bolt_l2 stock_tactical_l2",
@@ -1529,17 +1507,13 @@ string function ReturnRandomPrimaryMetagame_1v1()
 string function ReturnRandomSecondaryMetagame_1v1()
 {
     array<string> Weapons = [
-		"mp_weapon_rspn101 barrel_stabilizer_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
-		"mp_weapon_vinson optic_cq_hcog_classic stock_tactical_l2 highcal_mag_l2",
-		"mp_weapon_rspn101 barrel_stabilizer_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
-		"mp_weapon_vinson optic_cq_hcog_classic stock_tactical_l2 highcal_mag_l2",
-		"mp_weapon_rspn101 barrel_stabilizer_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
-		"mp_weapon_vinson optic_cq_hcog_classic stock_tactical_l2 highcal_mag_l2",
-		"mp_weapon_rspn101 barrel_stabilizer_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
-		"mp_weapon_vinson optic_cq_hcog_classic stock_tactical_l2 highcal_mag_l2",
 		"mp_weapon_wingman optic_cq_hcog_classic sniper_mag_l2 hopup_headshot_dmg",
-		"mp_weapon_wingman optic_cq_hcog_classic sniper_mag_l2 hopup_headshot_dmg",
-		"mp_weapon_energy_ar optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2 hopup_turbocharger"
+		"mp_weapon_rspn101 barrel_stabilizer_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_rspn101 barrel_stabilizer_l2 optic_cq_hcog_bruiser stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_vinson optic_cq_hcog_bruiser stock_tactical_l2 highcal_mag_l2",
+		"mp_weapon_vinson optic_cq_hcog_classic stock_tactical_l2 highcal_mag_l2",
+		"mp_weapon_energy_ar optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2 hopup_turbocharger",
+		"mp_weapon_energy_ar optic_cq_hcog_bruiser energy_mag_l2 stock_tactical_l2 hopup_turbocharger"
 	]
 
 	foreach(weapon in Weapons)
