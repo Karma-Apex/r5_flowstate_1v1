@@ -720,7 +720,11 @@ void function respawnInSoloMode(entity player, int respawnSlotIndex = -1) //Â§çÊ
 	if(!IsValid(player)) return
 
 	Inventory_SetPlayerEquipment(player, "armor_pickup_lv3", "armor")
+<<<<<<< HEAD
 	PlayerRestoreHP_1v1(player, 100, player.GetShieldHealthMax().tofloat())
+=======
+	PlayerRestoreHP_1v1(player, 100, GetCurrentPlaylistVarFloat("default_shield_hp", 125) )
+>>>>>>> 75a065be98c11d6a36b87e218663449710c17a03
 
 	Survival_SetInventoryEnabled( player, false )
 	//SetPlayerInventory( player, [] )
@@ -1450,6 +1454,12 @@ void function GiveWeaponsToGroup( array<entity> players )
 			player.TakeOffhandWeapon( OFFHAND_MELEE )
 			player.GiveWeapon( "mp_weapon_melee_survival", WEAPON_INVENTORY_SLOT_PRIMARY_2, [] )
 			player.GiveOffhandWeapon( "melee_pilot_emptyhanded", OFFHAND_MELEE, [] )
+			
+			if( !GetCurrentPlaylistVarBool( "flowstate1v1MatchLoadout", true ) )
+			{
+				primaryWeaponWithAttachments = ReturnRandomPrimaryMetagame_1v1()
+				secondaryWeaponWithAttachments = ReturnRandomSecondaryMetagame_1v1()
+			}
 		}
 	}()
 }

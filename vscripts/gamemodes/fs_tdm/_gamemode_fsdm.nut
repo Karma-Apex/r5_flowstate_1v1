@@ -385,12 +385,16 @@ int function GetTDMState(){
 
 void function SetTdmStateToNextRound(){
 	file.tdmState = eTDMState.NEXT_ROUND_NOW
-	SetGlobalNetInt( "FSDM_GameState", file.tdmState )
+
+	if( GameRules_GetGameMode() != "fs_prophunt" )
+		SetGlobalNetInt( "FSDM_GameState", file.tdmState )
 }
 
 void function SetTdmStateToInProgress(){
 	file.tdmState = eTDMState.IN_PROGRESS
-	SetGlobalNetInt( "FSDM_GameState", file.tdmState )
+	
+	if( GameRules_GetGameMode() != "fs_prophunt" )
+		SetGlobalNetInt( "FSDM_GameState", file.tdmState )
 }
 
 void function Flowstate_ServerSaveChat()
@@ -901,9 +905,12 @@ void function _OnPlayerDied(entity victim, entity attacker, var damageInfo)
         case eGameState.Playing:
             // Víctim
             void functionref() victimHandleFunc = void function() : (victim, attacker, damageInfo) {
-				
-				Remote_CallFunction_NonReplay( victim, "ForceScoreboardLoseFocus" )
-				Remote_CallFunction_NonReplay( victim, "FS_ForceDestroyCustomAdsOverlay" )
+
+				if( GetCurrentPlaylistVarBool( "is_halo_gamemode", false ) )
+				{
+					Remote_CallFunction_NonReplay( victim, "ForceScoreboardLoseFocus" )
+					Remote_CallFunction_NonReplay( victim, "FS_ForceDestroyCustomAdsOverlay" )
+				}
 
 				entity weapon = victim.GetActiveWeapon( eActiveInventorySlot.mainHand )
 				
@@ -3218,9 +3225,12 @@ void function SimpleChampionUI()
 		{
 			if( !IsValid( player ) )
 				continue
-
-			Remote_CallFunction_NonReplay( player, "ForceScoreboardLoseFocus" )
-			Remote_CallFunction_NonReplay( player, "FS_ForceDestroyCustomAdsOverlay" )
+			
+			if( GetCurrentPlaylistVarBool( "is_halo_gamemode", false ) )
+			{
+				Remote_CallFunction_NonReplay( player, "ForceScoreboardLoseFocus" )
+				Remote_CallFunction_NonReplay( player, "FS_ForceDestroyCustomAdsOverlay" )
+			}
 
 			entity weapon = player.GetActiveWeapon( eActiveInventorySlot.mainHand )
 			
