@@ -691,6 +691,7 @@ void function _OnPlayerConnected(entity player)
 		void functionref() soloModefixDelayStart1 = void function() : (player) {
 			Remote_CallFunction_NonReplay( player, "DM_HintCatalog", 3, 0)
 			wait 1
+			if ( !IsValid( player ) ) return
 			TakeAllWeapons( player )
 			HolsterAndDisableWeapons(player)
 			wait 9
@@ -1738,10 +1739,23 @@ void function GiveRandomPrimaryWeaponMetagame(entity player)
 	int slot = WEAPON_INVENTORY_SLOT_PRIMARY_0
 
     array<string> Weapons = [
-		"mp_weapon_alternator_smg optic_cq_threat bullets_mag_l2 stock_tactical_l2 laser_sight_l2"
-		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
 		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
 		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_alternator_smg optic_cq_threat bullets_mag_l2 stock_tactical_l2 laser_sight_l2"
 		"mp_weapon_energy_shotgun optic_cq_threat shotgun_bolt_l2 stock_tactical_l2",
 		"mp_weapon_mastiff optic_cq_threat shotgun_bolt_l2 stock_tactical_l2",
 		"mp_weapon_shotgun optic_cq_threat shotgun_bolt_l2 stock_tactical_l2"
@@ -1763,13 +1777,17 @@ void function GiveRandomSecondaryWeaponMetagame(entity player)
 	int slot = WEAPON_INVENTORY_SLOT_PRIMARY_1
 
     array<string> Weapons = [
-		"mp_weapon_wingman optic_cq_hcog_classic sniper_mag_l2 hopup_headshot_dmg",
 		"mp_weapon_rspn101 barrel_stabilizer_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
-		"mp_weapon_rspn101 barrel_stabilizer_l2 optic_cq_hcog_bruiser stock_tactical_l2 bullets_mag_l2",
-		"mp_weapon_vinson optic_cq_hcog_bruiser stock_tactical_l2 highcal_mag_l2",
 		"mp_weapon_vinson optic_cq_hcog_classic stock_tactical_l2 highcal_mag_l2",
-		"mp_weapon_energy_ar optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2 hopup_turbocharger",
-		"mp_weapon_energy_ar optic_cq_hcog_bruiser energy_mag_l2 stock_tactical_l2 hopup_turbocharger"
+		"mp_weapon_rspn101 barrel_stabilizer_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_vinson optic_cq_hcog_classic stock_tactical_l2 highcal_mag_l2",
+		"mp_weapon_rspn101 barrel_stabilizer_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_vinson optic_cq_hcog_classic stock_tactical_l2 highcal_mag_l2",
+		"mp_weapon_rspn101 barrel_stabilizer_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_vinson optic_cq_hcog_classic stock_tactical_l2 highcal_mag_l2",
+		"mp_weapon_wingman optic_cq_hcog_classic sniper_mag_l2 hopup_headshot_dmg",
+		"mp_weapon_wingman optic_cq_hcog_classic sniper_mag_l2 hopup_headshot_dmg",
+		"mp_weapon_energy_ar optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2 hopup_turbocharger"
 	]
 
 	foreach(weapon in Weapons)
@@ -1788,15 +1806,26 @@ void function GiveRandomPrimaryWeapon(entity player)
 	int slot = WEAPON_INVENTORY_SLOT_PRIMARY_0
 
     array<string> Weapons = [
-		"mp_weapon_wingman optic_cq_hcog_classic sniper_mag_l2",
-		"mp_weapon_r97 optic_cq_threat bullets_mag_l2 stock_tactical_l2",
-		"mp_weapon_wingman optic_cq_hcog_classic sniper_mag_l3",
-		"mp_weapon_vinson stock_tactical_l2 highcal_mag_l3",
-		"mp_weapon_hemlok optic_cq_hcog_classic stock_tactical_l2 highcal_mag_l2 barrel_stabilizer_l2",
-		"mp_weapon_lmg barrel_stabilizer_l1 stock_tactical_l3",
-        "mp_weapon_energy_ar energy_mag_l2 stock_tactical_l3",
-        "mp_weapon_alternator_smg bullets_mag_l3 stock_tactical_l3",
-        "mp_weapon_rspn101 stock_tactical_l2 bullets_mag_l2 barrel_stabilizer_l1"
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_alternator_smg optic_cq_threat bullets_mag_l2 stock_tactical_l2 laser_sight_l2"
+		"mp_weapon_energy_shotgun optic_cq_threat shotgun_bolt_l2 stock_tactical_l2",
+		"mp_weapon_mastiff optic_cq_threat shotgun_bolt_l2 stock_tactical_l2",
+		"mp_weapon_shotgun optic_cq_threat shotgun_bolt_l2 stock_tactical_l2"
 	]
 
 	foreach(weapon in Weapons)
@@ -1815,16 +1844,17 @@ void function GiveRandomSecondaryWeapon( entity player)
 	int slot = WEAPON_INVENTORY_SLOT_PRIMARY_1
 
     array<string> Weapons = [
-		"mp_weapon_r97 optic_cq_holosight bullets_mag_l2 stock_tactical_l3",
-		"mp_weapon_energy_shotgun shotgun_bolt_l2",
-		"mp_weapon_mastiff shotgun_bolt_l3",
-		"mp_weapon_autopistol bullets_mag_l2",
-		"mp_weapon_alternator_smg optic_cq_holosight bullets_mag_l3 stock_tactical_l3",
-		"mp_weapon_energy_ar energy_mag_l1 stock_tactical_l3 hopup_turbocharger",
-		"mp_weapon_doubletake optic_ranged_hcog energy_mag_l3 stock_sniper_l3",
-		"mp_weapon_vinson stock_tactical_l3 highcal_mag_l3",
-		"mp_weapon_rspn101 stock_tactical_l1 bullets_mag_l3 barrel_stabilizer_l2"
-		"mp_weapon_volt_smg energy_mag_l2 stock_tactical_l3"
+		"mp_weapon_rspn101 barrel_stabilizer_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_vinson optic_cq_hcog_classic stock_tactical_l2 highcal_mag_l2",
+		"mp_weapon_rspn101 barrel_stabilizer_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_vinson optic_cq_hcog_classic stock_tactical_l2 highcal_mag_l2",
+		"mp_weapon_rspn101 barrel_stabilizer_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_vinson optic_cq_hcog_classic stock_tactical_l2 highcal_mag_l2",
+		"mp_weapon_rspn101 barrel_stabilizer_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_vinson optic_cq_hcog_classic stock_tactical_l2 highcal_mag_l2",
+		"mp_weapon_wingman optic_cq_hcog_classic sniper_mag_l2 hopup_headshot_dmg",
+		"mp_weapon_wingman optic_cq_hcog_classic sniper_mag_l2 hopup_headshot_dmg",
+		"mp_weapon_energy_ar optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2 hopup_turbocharger"
 	]
 
 	foreach(weapon in Weapons)
@@ -1843,39 +1873,26 @@ void function GiveActualGungameWeapon(int index, entity player)
 	int slot = WEAPON_INVENTORY_SLOT_PRIMARY_0
 
     array<string> Weapons = [
-		"mp_weapon_r97 optic_cq_hcog_classicstock_tactical_l3 bullets_mag_l2",
-		"mp_weapon_wingman optic_cq_hcog_classic sniper_mag_l1",
-		"mp_weapon_rspn101 optic_cq_hcog_bruiser stock_tactical_l3 bullets_mag_l2",
-		"mp_weapon_energy_shotgun shotgun_bolt_l1",
-		"mp_weapon_vinson optic_cq_hcog_bruiser stock_tactical_l3 highcal_mag_l3",
-		"mp_weapon_shotgun shotgun_bolt_l1",
-		"mp_weapon_hemlok optic_cq_hcog_bruiser stock_tactical_l3 highcal_mag_l3 barrel_stabilizer_l4_flash_hider",
-		"mp_weapon_mastiff",
-		"mp_weapon_autopistol optic_cq_hcog_classic bullets_mag_l1",
-		"mp_weapon_lmg optic_cq_hcog_bruiser highcal_mag_l3 barrel_stabilizer_l3 stock_tactical_l3",
-		"mp_weapon_shotgun_pistol shotgun_bolt_l3",
-		"mp_weapon_rspn101 optic_cq_hcog_classic stock_tactical_l1 bullets_mag_l2",
-		"mp_weapon_defender optic_ranged_hcog stock_sniper_l2",
-		"mp_weapon_energy_ar optic_cq_hcog_bruiser energy_mag_l3 stock_tactical_l3 hopup_turbocharger",
-		"mp_weapon_alternator_smg optic_cq_hcog_classic bullets_mag_l3 stock_tactical_l3",
-		"mp_weapon_semipistol",
-		//"mp_weapon_esaw optic_cq_hcog_bruiser energy_mag_l1 barrel_stabilizer_l2",
-		"mp_weapon_doubletake energy_mag_l3",
-		"mp_weapon_rspn101 optic_cq_hcog_classic bullets_mag_l1 barrel_stabilizer_l1 stock_tactical_l1",
-		"mp_weapon_wingman sniper_mag_l1",
-		"mp_weapon_shotgun",
-		"mp_weapon_energy_shotgun",
-		"mp_weapon_vinson stock_tactical_l1 highcal_mag_l2",
-		"mp_weapon_r97 optic_cq_threat bullets_mag_l1 barrel_stabilizer_l3 stock_tactical_l1",
-		"mp_weapon_autopistol",
-		"mp_weapon_dmr optic_cq_hcog_bruiser sniper_mag_l2 barrel_stabilizer_l2 stock_sniper_l3",
-		//"mp_weapon_esaw optic_cq_hcog_classic energy_mag_l1 barrel_stabilizer_l4_flash_hider",
-		"mp_weapon_alternator_smg optic_cq_hcog_classic barrel_stabilizer_l2",
-		"mp_weapon_sniper",
-		"mp_weapon_defender optic_sniper stock_sniper_l2",
-		//"mp_weapon_esaw optic_cq_holosight_variable",
-		"mp_weapon_rspn101 optic_cq_holosight_variable",
-		"mp_weapon_semipistol bullets_mag_l2"
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_r97 laser_sight_l2 optic_cq_hcog_classic stock_tactical_l2 bullets_mag_l2",
+		"mp_weapon_volt_smg laser_sight_l2 optic_cq_hcog_classic energy_mag_l2 stock_tactical_l2",
+		"mp_weapon_alternator_smg optic_cq_threat bullets_mag_l2 stock_tactical_l2 laser_sight_l2"
+		"mp_weapon_energy_shotgun optic_cq_threat shotgun_bolt_l2 stock_tactical_l2",
+		"mp_weapon_mastiff optic_cq_threat shotgun_bolt_l2 stock_tactical_l2",
+		"mp_weapon_shotgun optic_cq_threat shotgun_bolt_l2 stock_tactical_l2"
 	]
 
 	foreach(weapon in Weapons)
@@ -1898,12 +1915,12 @@ void function GiveRandomTac(entity player)
 		"mp_weapon_bubble_bunker",
 		"mp_weapon_grenade_bangalore",
 		"mp_ability_area_sonar_scan",
-		"mp_weapon_grenade_sonar",
-		"mp_weapon_deployable_cover",
+		//"mp_weapon_grenade_sonar",
+		//"mp_weapon_deployable_cover",
 		"mp_ability_holopilot",
-		"mp_ability_cloak",
+		//"mp_ability_cloak",
 		"mp_ability_space_elevator_tac",
-		"mp_ability_phase_rewind"
+		//"mp_ability_phase_rewind"
 	]
 
 	foreach(ability in file.blacklistedAbilities)
@@ -1919,7 +1936,7 @@ void function GiveRandomUlt(entity player )
 		//"mp_weapon_grenade_gas",
 		"mp_weapon_jump_pad",
 		//"mp_weapon_phase_tunnel",
-		"mp_ability_3dash",
+		//"mp_ability_3dash",
 		"mp_ability_hunt_mode",
 		//"mp_weapon_grenade_creeping_bombardment",
 		//"mp_weapon_grenade_defensive_bombardment"
@@ -2636,7 +2653,9 @@ void function SimpleChampionUI()
 				player.SetThirdPersonShoulderModeOff()
 				_HandleRespawn(player)
 				player.UnforceStand()
-				HolsterAndDisableWeapons( player )
+
+				player.HolsterWeapon()
+				player.Server_TurnOffhandWeaponsDisabledOn()
 				Remote_CallFunction_Replay(player, "ServerCallback_FSDM_OpenVotingPhase", false)
 				ClearInvincible(player)
 				thread function () : ( player )
@@ -2652,9 +2671,10 @@ void function SimpleChampionUI()
 					
 					// Remote_CallFunction_NonReplay(player, "RefreshImageAndScaleOnMinimapAndFullmap")
 					
+					#if !DEVELOPER
 					if( GetCurrentPlaylistName() == "fs_dm" || GetCurrentPlaylistVarBool( "is_halo_gamemode", false ) )
 						wait Flowstate_StartTimeDelay
-					
+					#endif
 					if( GetCurrentPlaylistVarBool( "enable_oddball_gamemode", false ) )
 					{
 						Message( player, "Oddball", file.selectedLocation.name, 5, "" )
@@ -2685,9 +2705,8 @@ void function SimpleChampionUI()
 
 					player.MovementEnable()
 					player.UnlockWeaponChange()
-					EnableOffhandWeapons( player )
+					player.Server_TurnOffhandWeaponsDisabledOff()
 					player.UnfreezeControlsOnServer()
-					//DeployAndEnableWeapons(player)
 
 					entity primary = player.GetNormalWeapon( WEAPON_INVENTORY_SLOT_PRIMARY_0 )
 					entity secondary = player.GetNormalWeapon( WEAPON_INVENTORY_SLOT_PRIMARY_1 )
@@ -2826,12 +2845,21 @@ void function SimpleChampionUI()
 			// i++
 		}
 	}
-
+	#if !DEVELOPER
 	if( GetCurrentPlaylistName() == "fs_dm" || GetCurrentPlaylistVarBool( "is_halo_gamemode", false ) )
 		wait Flowstate_StartTimeDelay
-	
+	#endif
 	SetGameState( eGameState.Playing )
 	SetTdmStateToInProgress()
+	
+	foreach( player in GetPlayerArray() )
+	{
+		if( !IsValid( player ) )
+			continue
+
+		if( !IsAlive( player ) )
+			_HandleRespawn( player )
+	}
 
 	if( GetCurrentPlaylistVarBool( "enable_oddball_gamemode", false ) )
 	{
@@ -3068,7 +3096,8 @@ void function SimpleChampionUI()
 			ClientCommand( player, "-zoom" )
 			Remote_CallFunction_NonReplay(player, "Minimap_DisableDraw_Internal")
 			player.SetThirdPersonShoulderModeOn()
-			HolsterAndDisableWeapons( player )
+			player.HolsterWeapon()
+			player.Server_TurnOffhandWeaponsDisabledOn()
 			
 			if( GetCurrentPlaylistVarBool( "enable_oddball_gamemode", false )  )
 			{
@@ -3147,14 +3176,22 @@ void function SimpleChampionUI()
 			// Message( player, "We have reached the round to change levels.", "Total Round: " + file.currentRound, 6.0 )
 
 		foreach( player in GetPlayerArray() )
-			Message( player, "Server clean up incoming", "Don't leave. Server is going to reload to avoid lag.", 6.0 )
+			Message( player, "Round complete", "Don't leave. Server is changing maps.", 6.0 )
 		
 		wait 6.0
 		
 		if(FlowState_EnableMovementGymLogs() && FlowState_EnableMovementGym())
 			MovementGymSaveTimesToFile()
 
-		GameRules_ChangeMap( GetMapName(), GameRules_GetGameMode() )
+		//GameRules_ChangeMap( GetMapName(), GameRules_GetGameMode() )
+		if (GetMapName() == "mp_rr_aqueduct")
+		{
+			GameRules_ChangeMap( "mp_rr_arena_composite", GameRules_GetGameMode() )
+		}
+		else if (GetMapName() == "mp_rr_arena_composite")
+		{
+			GameRules_ChangeMap( "mp_rr_aqueduct", GameRules_GetGameMode() )
+		}
 	}
 
 	int TeamWon = 69
